@@ -1,0 +1,24 @@
+﻿@model List<WebApplication1.Models.Session>
+
+@{
+    ViewData["Title"] = "Attendee Page";
+}
+
+<h4>My Sessions</h4>
+
+
+@* APPROACH 1: classic MVC approach: Razor syntax *@
+<ul class="list-group">
+    @foreach (var session in Model)
+    {
+        <li class="list-group-item">
+            <span class="badge">@session.SeatsAvailable</span>
+            @session.Title
+        </li>
+    }
+</ul>
+
+
+
+@* APPROACH 2: MVC Core approach *@
+<session-list asp-items="Model" />
