@@ -41,6 +41,9 @@ namespace WebApplication1
 
             // Add our config object, so that it can be injected.
             services.Configure<Attendee>(Configuration.GetSection("AttendeeInfo"));
+
+            // Register IConfiguration with DI system to support IConfiguration.GetValue approach
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         #endregion
