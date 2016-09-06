@@ -15,6 +15,9 @@ namespace WebApplication1.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            const string BADGE_CONTAINER_TAG = "span";
+            const string BADGE_CSS_CLASS = "badge";
+
             base.Process(context, output);
             output.TagName = "ul";
             output.TagMode = TagMode.StartTagAndEndTag;
@@ -24,16 +27,22 @@ namespace WebApplication1.TagHelpers
             {
                 TagBuilder sessionBuilder = new TagBuilder("li");
 
-                TagBuilder badgeBuilder = new TagBuilder("span");
-                badgeBuilder.AddCssClass("badge");
-                badgeBuilder.InnerHtml.Append(session.SeatsAvailable.ToString());
-                sessionBuilder.InnerHtml.AppendHtml(badgeBuilder);
+                TagBuilder trackBadgeBuilder = new TagBuilder(BADGE_CONTAINER_TAG);
+                trackBadgeBuilder.AddCssClass(BADGE_CSS_CLASS);
+                trackBadgeBuilder.InnerHtml.Append(session.Track.ToString());
+                sessionBuilder.InnerHtml.AppendHtml(trackBadgeBuilder);
+
+                TagBuilder timeBadgeBuilder = new TagBuilder(BADGE_CONTAINER_TAG);
+                timeBadgeBuilder.AddCssClass(BADGE_CSS_CLASS);
+                timeBadgeBuilder.InnerHtml.Append(session.TimeSlot.ToString(@"h\:mm"));
+                sessionBuilder.InnerHtml.AppendHtml(timeBadgeBuilder);
 
                 sessionBuilder.AddCssClass("list-group-item");
                 sessionBuilder.InnerHtml.Append(session.Title);
 
                 output.Content.AppendHtml(sessionBuilder);
             }
+
         }
     }
 }

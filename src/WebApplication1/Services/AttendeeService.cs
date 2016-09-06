@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WebApplication1.Models;
 
 namespace WebApplication1.Services
@@ -8,13 +9,15 @@ namespace WebApplication1.Services
         public List<Session> GetSessions() => 
             new List<Session>() {
                 new Session {
-                    SeatsAvailable = 5,
-                    Title = "From Legacy MVC to Modern MVC: An ASP.NET Core Migration Path"
+                    TimeSlot = new TimeSpan(1, 9, 30, 0),
+                    Title = "From Legacy MVC to Modern MVC: An ASP.NET Core Migration Path",
+                    Track = Track.Web
                 },
                 new Session
                 {
-                    SeatsAvailable = 2,
-                    Title = "Getting Started with ASP.NET Core in VS Code"
+                    TimeSlot = new TimeSpan(1, 10, 45, 0),
+                    Title = "Getting Started with ASP.NET Core in VS Code",
+                    Track = Track.Web
                 }
             };
     }

@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
 {
     public class AttendeesController : Controller
     {
-        private IAttendeeService _attendeeService;
+        private readonly IAttendeeService _attendeeService;
         private Attendee _attendee;
 
         public AttendeesController(IAttendeeService attendeeService,
@@ -25,14 +25,5 @@ namespace WebApplication1.Controllers
 
             return View(sessionList);
         }
-
-        //public IActionResult SelectSession(
-        //    [FromServices] ISessionService sessionService,
-        //    int sessionId)
-        //{
-        //    var selected = sessionService.SelectSession(sessionId);
-
-        //    return View();
-        //}
     }
 }
