@@ -4,11 +4,11 @@
     ViewData["Title"] = "Attendee Page";
 }
 
-<h4>My Sessions: @DateTime.Now.ToString("d")</h4>
+<h4>@ViewBag.FirstName's Sessions: @DateTime.Now.ToString("d")</h4>
 
 
 
-@* APPROACH 1: classic MVC approach: Razor syntax *@
+@* APPROACH 1: classic MVC approach *@
 <ul class="list-group">
     @foreach (var session in Model)
     {
