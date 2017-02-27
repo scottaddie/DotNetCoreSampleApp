@@ -3,7 +3,7 @@ using WebApplication1.Services;
 
 namespace WebApplication1
 {
-    public class DefaultModule : Module
+    public class AutofacModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

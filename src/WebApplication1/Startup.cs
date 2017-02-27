@@ -55,9 +55,18 @@ namespace WebApplication1
         //    // Add framework services.
         //    services.AddMvc();
 
+        //    // Add functionality to inject IOptions<T>.
+        //    services.AddOptions();
+
+        //    // Add our config object, so that it can be injected.
+        //    services.Configure<Attendee>(Configuration.GetSection("AttendeeInfo"));
+
+        //    // Register IConfiguration with DI system to support IConfiguration.GetValue approach
+        //    services.AddSingleton<IConfiguration>(Configuration);
+
         //    // Add Autofac
         //    var containerBuilder = new ContainerBuilder();
-        //    containerBuilder.RegisterModule<DefaultModule>();
+        //    containerBuilder.RegisterModule<AutofacModule>();
         //    containerBuilder.Populate(services);
         //    var container = containerBuilder.Build();
         //    return container.Resolve<IServiceProvider>();
@@ -82,13 +91,7 @@ namespace WebApplication1
             }
 
             app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
