@@ -1,6 +1,4 @@
-﻿using System;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
+﻿using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,21 +11,15 @@ namespace WebApplication1
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         #region Native IoC Container
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IAttendeeService, AttendeeService>();
@@ -50,7 +42,7 @@ namespace WebApplication1
 
         #region 3rd Party IoC Container
 
-        //public IServiceProvider ConfigureServices(IServiceCollection services)
+        //public void ConfigureServices(IServiceCollection services)
         //{
         //    // Add framework services.
         //    services.AddMvc();
@@ -63,18 +55,21 @@ namespace WebApplication1
 
         //    // Register IConfiguration with DI system to support IConfiguration.GetValue approach
         //    services.AddSingleton<IConfiguration>(Configuration);
+        //}
 
-        //    // Add Autofac
-        //    var containerBuilder = new ContainerBuilder();
-        //    containerBuilder.RegisterModule<AutofacModule>();
-        //    containerBuilder.Populate(services);
-        //    var container = containerBuilder.Build();
-        //    return container.Resolve<IServiceProvider>();
+        //public void ConfigureContainer(ContainerBuilder builder)
+        //{
+        //    // Add any Autofac modules or registrations.
+        //    // This is called AFTER ConfigureServices so things you
+        //    // register here OVERRIDE things registered in ConfigureServices.
+        //    //
+        //    // You must have the call to AddAutofac in the Program.Main
+        //    // method or this won't be called.
+        //    builder.RegisterModule(new AutofacModule());
         //}
 
         #endregion
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
